@@ -25,7 +25,7 @@ export class AccountManager {
   register(email :string, password :string) :IUser {
     if(!email) throw 'Must provide an email';
     if(!password) throw 'Must provide a password';
-    let user = { email, password };
+    let user: User = { email, password };
     this.users.push(user);
     return user;
   }
@@ -62,4 +62,4 @@ let admin: IAdmin = {email: 'test@test.com', password: 'Test123', isActive: true
 let user: IConfirmedUser = {email: 'test2@test.com', password: 'Test2123', isActive: true};
 
 let accounts = new AccountManager();
-accounts.promoteToAdmin(admin, user);
+

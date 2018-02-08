@@ -1,6 +1,8 @@
+import { log } from "util";
+
 interface IStack<T> {
   push(item: T): IStack<T>;
-  push(items: T[]): IStack<T>;
+  push(items: T[]): IStack<T>; 
   pop(): T | undefined;
   length(): number;
   print(): void;
@@ -52,3 +54,9 @@ export class Stack<T> implements IStack<T>{
     }
   }
 }
+
+
+let stack = new Stack();
+console.log(stack.push('First').push(['Second', 'Third']).length());
+stack.print();
+console.log(stack.pop());

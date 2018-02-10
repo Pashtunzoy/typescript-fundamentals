@@ -4,7 +4,7 @@ export interface IUser {
 }
 
 export interface IConfirmedUser extends IUser {
-  isActive: true
+  isActive: boolean
 }
 
 export interface IAdmin extends IConfirmedUser {
@@ -25,7 +25,7 @@ export class AccountManager {
   register(email :string, password :string) :IUser {
     if(!email) throw 'Must provide an email';
     if(!password) throw 'Must provide a password';
-    let user: User = { email, password };
+    let user: IUser = { email, password };
     this.users.push(user);
     return user;
   }

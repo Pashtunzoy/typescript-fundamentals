@@ -16,6 +16,7 @@ export class App extends React.Component<{}, IAppState> {
       term: '',
       inProgress: false
     };
+    this.trySearch = this.trySearch.bind(this);
   }
   async trySearch(search: string) {
     this.setState({ inProgress: true, term: search });
@@ -26,17 +27,7 @@ export class App extends React.Component<{}, IAppState> {
   render() {
     console.log(this.state.results);
     return (
-      <div>
-        <h2>Search for a place</h2>
-        <input
-          onChange={(e) => this.trySearch(e.target.value) }
-          placeholder="Search"
-          type="search"
-        />
-        <ul className="results">
-          <PlaceSearchResultList {...this.state}/>
-        </ul>
-      </div>
+      <PlaceSearchResultList {...this.state} handleSearch={this.trySearch}/>
     );
   }
 };

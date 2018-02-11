@@ -1,30 +1,42 @@
 import * as React from 'react';
-import { PlaceDetails } from './utils/places';
-import { shortUrl } from './utils/string';
+import { IAppState, App } from './app';
 import { PlaceSearchResult } from './place-search-result';
-import { IAppState as IPlaceSearchResultList } from './app';
 
+interface IResultListProps extends IAppState {
+  handleSearch?: (term: string) => void
+}
 
-export const PlaceSearchResultList: React.SFC<IPlaceSearchResultList> = function({ inProgress, term, results }) {
-  let finalResults = results.map((result: any) => {
-      return <PlaceSearchResult {...result} key={ result.id }/>
-  })
+const NO_OP = () => {};
+
+export const PlaceSearchResultList: React.SFC<IResultListProps> = (p) => {
+  let handler = p.handleSearch || NO_OP;
+  let resultSet: JSX.Element[] = [];
+  
+  if (p.term === '') {
+    resultSet.push((
+      <li key="nothing" className="blue" >
+        Please enter a search term above
+      </li>
+    ));
+  } else if (p.inProgress) {
+    resultSet.push((
+      <li key="inprogress" className="blue" >
+        Searching for {p.term} ...
+      </li>
+    ));
+  } else if (p.results.length > 0) {
+    resultSet = p.results.map(r => (
+      <PlaceSearchResult key={r.id} {...r} />
+    ));
+  }
+
   return (
     <div>
-      { inProgress &&
-        <li className="blue" >
-          Searching for {term ? term : 'donut'}...
-        </li>
-      }
-
-      {
-        finalResults.length < 1 ?
-          <li>
-            Type something in above to search
-          </li>
-          :
-          finalResults
-      }
-    </div>
-  );
+    <h2>Search for a place </h2>
+    <input onChange={e => handler(e.target.value)} placeholder="Search" type="search" />
+    <ul className="results" >
+      {resultSet}
+    </ul>
+  </div>
+  )
 }

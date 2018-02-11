@@ -1,15 +1,22 @@
 import * as React from 'react';
 import { PlaceDetails } from './utils/places';
+import { shortUrl } from './utils/string';
+
 export const PlaceSearchResult: React.SFC<PlaceDetails> = (pd) => {
   return (
     <li className="search-result">
-      <img src={pd.icon} alt={`${pd.name} image`} className="icon"/>
-      <h3>{pd.name}</h3>
-      {/* <h4>Rating: {pd.rating}</h4> */}
+      <img className="icon"
+        src={pd.icon} />
+      <h3> {pd.name} </h3>
       <p>
-        <a href={pd.url} target="_blank">{pd.vicinity}</a>
+        <a href={pd.url}
+          target="_blank">
+          {pd.vicinity}</a>&nbsp;
         -
-        {pd.website && <a href={pd.website} target="_blank">{pd.website}</a>}
+        &nbsp;
+      <a href={pd.website} target="_blank" >
+          {shortUrl(pd.website, 20)}
+      </a>
       </p>
     </li>
   );

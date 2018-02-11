@@ -14,7 +14,7 @@ export class App extends React.Component<{}, IAppState> {
     };
   }
   async componentDidMount() {
-    let placeSummaries: PlaceSummary[] = await fetchPlaceSummaries('donut');
+    let placeSummaries: PlaceSummary[] = await fetchPlaceSummaries('bank');
     let results: PlaceDetails[] = await fetchPlaceDetails(placeSummaries.map(p => p.place_id));
     this.setState({ results });
   }

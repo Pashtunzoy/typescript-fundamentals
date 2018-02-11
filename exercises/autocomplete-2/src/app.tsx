@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PlaceSearchResultList } from './place-search-result-list';
 import { PlaceDetails, PlaceSummary, fetchPlaceSummaries, fetchPlaceDetails } from './utils/places';
 
-interface IAppState {
+export interface IAppState {
   results: PlaceDetails[];
   inProgress: boolean;
   term: string; 
@@ -26,7 +26,17 @@ export class App extends React.Component<{}, IAppState> {
   render() {
     console.log(this.state.results);
     return (
-      <PlaceSearchResultList />
+      <div>
+        <h2>Search for a place</h2>
+        <input
+          onChange={(e) => this.trySearch(e.target.value) }
+          placeholder="Search"
+          type="search"
+        />
+        <ul className="results">
+          <PlaceSearchResultList {...this.state}/>
+        </ul>
+      </div>
     );
   }
 };
